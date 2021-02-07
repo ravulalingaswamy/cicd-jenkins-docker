@@ -1,0 +1,22 @@
+node{
+    stage('Scm Checkout'){
+        git 'https://github.com/ravulalingaswamy/cicd-jenkins-docker.git'
+    }
+    stage('Building Package'){
+        def mvnHome = tool name: 'Maven-3', type: 'maven'
+        def mvnCMD = "${mvnHome}/bin/mvn"
+        sh "${mvnCMD} clean package"
+    }
+    stage('Building docker Image'){
+        sh 'docker build -t lingaswamyr/inno-app:1.0.0 .'
+    }
+    stage('Push Docker Image to Docker-hub'){
+        sh 'docker login -u lingaswamyr -p 097Q1a0444!'
+        sh 'docker push lingaswamyr/inno-app:1.0.0'
+    }
+    stage('Running Web App'){
+        sh 'docker run -p 8089:8080 -d --name inno-app lingaswamyr/inno-app:1.0.0'
+    }
+
+
+#######################################}
