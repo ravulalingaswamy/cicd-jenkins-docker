@@ -7,6 +7,8 @@ RUN curl -O https://www-eu.apache.org/dist/tomcat/tomcat-8/v8.5.40/bin/apache-to
 RUN tar -xvfz apache*.tar.gz
 RUN mv apache-tomcat-8.5.40/* /opt/tomcat/.
 RUN yum -y install java
+RUN yum install tar -y
+RUN yum install zip -y
 RUN java -version
 
 WORKDIR /opt/tomcat/webapps
